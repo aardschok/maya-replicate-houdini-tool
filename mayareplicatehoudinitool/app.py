@@ -87,6 +87,8 @@ class App(QtWidgets.QWidget):
         QtWidgets.QWidget.__init__(self, parent)
 
         self.setWindowTitle("Replicate Houdini Asset (particles)")
+        self.setWindowFlags(QtCore.Qt.Window)
+        self.setParent(parent)
         self.resize(280, 280)
 
         layout = QtWidgets.QVBoxLayout()
@@ -284,6 +286,12 @@ def show(parent=None):
         pass
 
     with tools_lib.application():
+        if parent is None:
+            app = QtWidgets.QApplication.instance()
+            parent = next(i for i in app.topLevelWidgets() if
+                          i.objectName() == "MayaWindow")
+            print(">>", parent)
+
         window = App(parent)
         window.show()
 
