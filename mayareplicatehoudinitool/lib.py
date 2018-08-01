@@ -270,7 +270,8 @@ def replicate(name, asset_mapping, attribute_mapping=None):
                                                **kwargs)
 
         # Force all types to True in UI ( no other way )
-        cmds.checkBoxGrp("AEdisplayAllTypes", edit=True, v1=True)
+        if cmds.checkBoxGrp("AEdisplayAllTypes", query=True, exists=True):
+            cmds.checkBoxGrp("AEdisplayAllTypes", edit=True, v1=True)
 
         # Set rotation attributes
         cmds.setAttr("{}.rotationAngleUnits".format(new_instancer), 1)
